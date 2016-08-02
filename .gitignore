@@ -1,0 +1,12 @@
+# Created by .gitignore support plugin (hsz.mobi)
+
+.idea/
+ask-anything.iml
+
+.gradle/
+build/
+
+logs/
+application.out
+event.log
+gc.log
