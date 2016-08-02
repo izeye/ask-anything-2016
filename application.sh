@@ -8,7 +8,7 @@ PROGRAM_OUTPUT_FILE=application.out
 
 JAR_PATH=build/libs/ask-anything.jar
 
-VM_OPTION_JMX="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=10000 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+VM_OPTION_JMX="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=10001 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 VM_OPTION_HEAP="-Xms1g -Xmx1g"
 VM_OPTION_GC="-verbose:gc -Xloggc:gc.log -XX:+PrintGCDetails -XX:+PrintGCDateStamps -XX:+PrintGCApplicationStoppedTime"
 VM_OPTIONS="$VM_OPTION_JMX $VM_OPTION_HEAP $VM_OPTION_GC"
