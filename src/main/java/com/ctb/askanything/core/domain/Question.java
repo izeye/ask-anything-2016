@@ -14,18 +14,21 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.service;
+package com.ctb.askanything.core.domain;
 
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.Question;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 /**
- * Interface for answer engines.
+ * Question container.
  *
  * @author Johnny Lim
  */
-public interface AnswerEngine {
+@Data
+@AllArgsConstructor
+public class Question {
 
-	Answer answer(Question question);
+	private String body;
+	private String requestIpAddress;
 
 }

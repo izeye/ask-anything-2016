@@ -18,15 +18,22 @@ package com.ctb.askanything.core.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * Answer.
+ * Answer container.
  *
  * @author Johnny Lim
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class Answer {
+
+	/**
+	 * Answer object representing that an answer engine can't answer for the question.
+	 */
+	public static final Answer NOT_AVAILABLE = new Answer();
 
 	private String body;
 

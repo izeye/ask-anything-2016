@@ -14,18 +14,28 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.service;
+package com.ctb.askanything.core.domain;
 
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.Question;
+import org.springframework.core.Ordered;
 
 /**
- * Interface for answer engines.
+ * Order constants for answer engines.
  *
  * @author Johnny Lim
  */
-public interface AnswerEngine {
+public abstract class AnswerEngineOrders {
 
-	Answer answer(Question question);
+	/**
+	 * Order for my IP address answer engine.
+	 */
+	public static final int MY_IP_ADDRESS = 1;
+
+	/**
+	 * Order for the fallback answer engine.
+	 */
+	public static final int FALLBACK = Ordered.LOWEST_PRECEDENCE;
+
+	private AnswerEngineOrders() {
+	}
 
 }

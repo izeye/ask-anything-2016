@@ -16,21 +16,31 @@
 
 package com.ctb.askanything.core.service;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import com.ctb.askanything.core.domain.Answer;
+import com.ctb.askanything.core.domain.AnswerEngineOrders;
+import com.ctb.askanything.core.domain.Question;
 
 /**
- * Answer engine questioning the original question.
+ * Fallback answer engine.
+ *
+ * This is an answer engine questioning the original question.
  *
  * @author Johnny Lim
  */
 @Service
-public class QuestionAnswerEngine implements AnswerEngine {
+@Order(AnswerEngineOrders.FALLBACK)
+public class FallbackAnswerEngine implements AnswerEngine {
+
+	private static final String TEMPLATE_ANSWER = "Are you asking \"{body}\"?";
+	private static final String PLACEHOLDER_BODY = "{body}";
 
 	@Override
-	public Answer answer(String question) {
-		return new Answer("Are you asking \"" + question + "\"?");
+	public Answer answer(Question question) {
+		String answer = TEMPLATE_ANSWER.replace(PLACEHOLDER_BODY, question.getBody());
+		return new Answer(answer);
 	}
 
 }
