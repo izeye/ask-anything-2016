@@ -14,33 +14,25 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.domain;
+package com.ctb.askanything.core.config;
 
-import org.springframework.core.Ordered;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import com.izeye.uaanalyzer.core.service.DefaultUserAgentAnalyzer;
+import com.izeye.uaanalyzer.core.service.UserAgentAnalyzer;
 
 /**
- * Order constants for answer engines.
+ * Configuration for this application.
  *
  * @author Johnny Lim
  */
-public abstract class AnswerEngineOrders {
+@Configuration
+public class AppConfig {
 
-	/**
-	 * Order for the my IP address answer engine.
-	 */
-	public static final int MY_IP_ADDRESS = 1;
-
-	/**
-	 * Order for the user agent answer engine.
-	 */
-	public static final int USER_AGENT = 2;
-
-	/**
-	 * Order for the fallback answer engine.
-	 */
-	public static final int FALLBACK = Ordered.LOWEST_PRECEDENCE;
-
-	private AnswerEngineOrders() {
+	@Bean
+	public UserAgentAnalyzer userAgentAnalyzer() {
+		return new DefaultUserAgentAnalyzer();
 	}
 
 }

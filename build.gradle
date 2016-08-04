@@ -41,6 +41,9 @@ dependencies {
     compile("org.webjars:bootstrap:${bootstrapVersion}")
     compile("org.webjars:jquery:${jQueryVersion}")
 
+    // NOTE: See https://github.com/izeye/ua-analyzer
+    compile("com.izeye.ua-analyzer:ua-analyzer-core:${uaAnalyzerVersion}")
+
     provided("org.projectlombok:lombok")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
