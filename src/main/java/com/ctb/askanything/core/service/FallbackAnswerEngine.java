@@ -40,7 +40,7 @@ public class FallbackAnswerEngine implements AnswerEngine {
 	@Override
 	public Answer answer(Question question) {
 		String answer = TEMPLATE_ANSWER.replace(PLACEHOLDER_BODY, question.getBody());
-		return new Answer(answer);
+		return new Answer(question, answer);
 	}
 
 }

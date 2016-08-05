@@ -22,11 +22,21 @@
 </head>
 <body>
 <script>
+    var answerId = null;
+
     function ask() {
         var question = $('#question').val();
-        $.getJSON("/api/v1/ask", { question: question }, function (json) {
-            $('#answer').text(json.body);
+        $.getJSON('/api/v1/ask', { question: question }, function (answer) {
+            answerId = answer.id;
+            $('#answer-area').text(answer.body);
+            $('#feedback-area').show();
         });
+    }
+
+    function feedback() {
+        var feedback = $('#feedback').val();
+        var feedbackUri = '/api/v1/feedback/' + answerId;
+        $.post(feedbackUri, {feedback: feedback});
     }
 </script>
 
@@ -35,11 +45,17 @@
 
     <div>
         <label for="question">Question: </label>
-        <input type="text" id="question" name="question" />
+        <input type="text" id="question" />
+        <input type="submit" value="Ask" onclick="ask()" />
     </div>
-    <input type="submit" value="Ask" onclick="ask()" />
 
-    <div id="answer" name="answer"></div>
+    <div id="answer-area"></div>
+
+    <div id="feedback-area" style="display: none">
+        <label for="feedback">Feedback: </label>
+        <textarea id="feedback"></textarea>
+        <input type="submit" value="Feedback" onclick="feedback()" />
+    </div>
 </div>
 </body>
 </html>

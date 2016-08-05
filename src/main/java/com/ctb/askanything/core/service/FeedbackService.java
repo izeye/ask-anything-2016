@@ -14,35 +14,17 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.domain;
+package com.ctb.askanything.core.service;
 
-import java.util.UUID;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.ctb.askanything.core.domain.Feedback;
 
 /**
- * Answer container.
+ * Interface for feedback service.
  *
  * @author Johnny Lim
  */
-@Data
-@NoArgsConstructor
-public class Answer {
+public interface FeedbackService {
 
-	/**
-	 * Answer object representing that an answer engine can't answer for the question.
-	 */
-	public static final Answer NOT_AVAILABLE = new Answer();
-
-	private String id;
-	private Question question;
-	private String body;
-
-	public Answer(Question question, String body) {
-		this.id = UUID.randomUUID().toString();
-		this.question = question;
-		this.body = body;
-	}
+	void feedback(Feedback feedback);
 
 }

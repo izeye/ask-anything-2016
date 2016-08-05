@@ -10,6 +10,7 @@
     <property name="WARN_LOG_FILE" value="logs/warn.log" />
     <property name="ERROR_LOG_FILE" value="logs/error.log" />
     <property name="ANSWER_LOG_FILE" value="logs/answer.log" />
+    <property name="FEEDBACK_LOG_FILE" value="logs/feedback.log" />
 
     <appender name="DEBUG_LOG_APPENDER"
               class="ch.qos.logback.core.rolling.RollingFileAppender">
@@ -77,8 +78,26 @@
         </encoder>
     </appender>
 
+    <appender name="FEEDBACK_LOG_APPENDER"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${FEEDBACK_LOG_FILE}</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${FEEDBACK_LOG_FILE}.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%msg%n</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
     <logger name="ANSWER" level="INFO" additivity="false">
         <appender-ref ref="ANSWER_LOG_APPENDER" />
+    </logger>
+
+    <logger name="FEEDBACK" level="INFO" additivity="false">
+        <appender-ref ref="FEEDBACK_LOG_APPENDER" />
     </logger>
 
     <root level="INFO">

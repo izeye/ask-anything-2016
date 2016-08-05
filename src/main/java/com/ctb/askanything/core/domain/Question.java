@@ -16,7 +16,8 @@
 
 package com.ctb.askanything.core.domain;
 
-import lombok.AllArgsConstructor;
+import java.util.UUID;
+
 import lombok.Data;
 
 /**
@@ -25,10 +26,18 @@ import lombok.Data;
  * @author Johnny Lim
  */
 @Data
-@AllArgsConstructor
 public class Question {
 
+	private String id;
+	private Long timestampInMillis;
 	private String body;
 	private String requestIpAddress;
+
+	public Question(String body, String requestIpAddress) {
+		this.id = UUID.randomUUID().toString();
+		this.timestampInMillis = System.currentTimeMillis();
+		this.body = body;
+		this.requestIpAddress = requestIpAddress;
+	}
 
 }

@@ -19,30 +19,27 @@ package com.ctb.askanything.core.domain;
 import java.util.UUID;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 /**
- * Answer container.
+ * Feedback.
  *
  * @author Johnny Lim
  */
 @Data
-@NoArgsConstructor
-public class Answer {
-
-	/**
-	 * Answer object representing that an answer engine can't answer for the question.
-	 */
-	public static final Answer NOT_AVAILABLE = new Answer();
+public class Feedback {
 
 	private String id;
-	private Question question;
+	private Long timestampInMillis;
+	private String answerId;
 	private String body;
+	private String requestIpAddress;
 
-	public Answer(Question question, String body) {
+	public Feedback(String answerId, String body, String requestIpAddress) {
 		this.id = UUID.randomUUID().toString();
-		this.question = question;
+		this.timestampInMillis = System.currentTimeMillis();
+		this.answerId = answerId;
 		this.body = body;
+		this.requestIpAddress = requestIpAddress;
 	}
 
 }

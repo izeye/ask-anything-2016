@@ -45,7 +45,7 @@ public class MyIpAddressAnswerEngine implements AnswerEngine {
 
 		String answer = TEMPLATE_ANSWER.replace(
 				PLACEHOLDER_REQUEST_IP_ADDRESS, question.getRequestIpAddress());
-		return new Answer(answer);
+		return new Answer(question, answer);
 	}
 
 	private boolean isAnswerable(Question question) {

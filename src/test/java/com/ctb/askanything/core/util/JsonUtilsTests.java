@@ -16,13 +16,9 @@
 
 package com.ctb.askanything.core.util;
 
-import java.util.Date;
-
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import org.junit.Test;
-
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.AnswerHistory;
-import com.ctb.askanything.core.domain.Question;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -35,19 +31,26 @@ public class JsonUtilsTests {
 
 	@Test
 	public void test() {
-		String questionBody = "body";
-		String requestIpAddress = "requestIpAddress";
-		Question question = new Question(questionBody, requestIpAddress);
+		String firstName = "Johnny";
+		String lastName = "Lim";
+		int age = 20;
+		Person person = new Person(firstName, lastName, age);
 
-		String answerBody = "answerBody";
-		Answer answer = new Answer(answerBody);
-
-		AnswerHistory history = new AnswerHistory(new Date(), question, answer);
-		String json = JsonUtils.toJson(history);
+		String json = JsonUtils.toJson(person);
 		System.out.println(json);
 
-		AnswerHistory unmarshalled = JsonUtils.fromJson(json, AnswerHistory.class);
-		assertThat(unmarshalled).isEqualTo(history);
+		Person unmarshalled = JsonUtils.fromJson(json, Person.class);
+		assertThat(unmarshalled).isEqualTo(person);
+	}
+
+	@Data
+	@AllArgsConstructor
+	private static class Person {
+
+		private String firstName;
+		private String lastName;
+		private int age;
+
 	}
 
 }

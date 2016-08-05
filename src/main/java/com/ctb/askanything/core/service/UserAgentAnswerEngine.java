@@ -52,7 +52,7 @@ public class UserAgentAnswerEngine implements AnswerEngine {
 		}
 		String answer = TEMPLATE_ANSWER.replace(
 				PLACEHOLDER_ANALYZED_USER_AGENT, analyzed.toPrettyString());
-		return new Answer(answer);
+		return new Answer(question, answer);
 	}
 
 }

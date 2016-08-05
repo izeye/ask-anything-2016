@@ -14,24 +14,29 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.domain;
+package com.ctb.askanything.core.service;
 
-import java.util.Date;
+import org.springframework.stereotype.Service;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.ctb.askanything.core.domain.Feedback;
+import com.ctb.askanything.core.util.JsonUtils;
 
 /**
- * Answer history.
+ * Default feedback service.
  *
  * @author Johnny Lim
  */
-@Data
-@AllArgsConstructor
-public class AnswerHistory {
+@Service
+public class DefaultFeedbackService implements FeedbackService {
 
-	private Date timestamp;
-	private Question question;
-	private Answer answer;
+	private static final Logger FEEDBACK_LOG = LoggerFactory.getLogger("FEEDBACK");
+
+	@Override
+	public void feedback(Feedback feedback) {
+		FEEDBACK_LOG.info(JsonUtils.toJson(feedback));
+	}
 
 }
