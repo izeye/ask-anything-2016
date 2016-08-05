@@ -16,8 +16,6 @@
 
 package com.ctb.askanything.core.web;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ctb.askanything.core.domain.Answer;
 import com.ctb.askanything.core.domain.Question;
-import com.ctb.askanything.core.service.AnswerEngine;
+import com.ctb.askanything.core.service.AnswerService;
 
 /**
  * Controller for ask APIs.
@@ -40,19 +38,13 @@ import com.ctb.askanything.core.service.AnswerEngine;
 public class AskApiController {
 
 	@Autowired
-	private List<AnswerEngine> answerEngines;
+	private AnswerService answerService;
 
 	@GetMapping
 	public Answer ask(@RequestParam String question, HttpServletRequest request) {
 		String requestIpAddress = request.getRemoteAddr();
 		Question questionContainer = new Question(question, requestIpAddress);
-		for (AnswerEngine answerEngine : answerEngines) {
-			Answer answer = answerEngine.answer(questionContainer);
-			if (answer != Answer.NOT_AVAILABLE) {
-				return answer;
-			}
-		}
-		throw new IllegalStateException("Unreachable. Fallback answer engine failed?");
+		return this.answerService.ask(questionContainer);
 	}
 
 }
