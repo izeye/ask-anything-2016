@@ -26,6 +26,7 @@ import org.slf4j.LoggerFactory;
 
 import com.ctb.askanything.core.domain.Answer;
 import com.ctb.askanything.core.domain.Question;
+import com.ctb.askanything.core.repository.ElasticsearchAnswerRepository;
 import com.ctb.askanything.core.util.JsonUtils;
 
 /**
@@ -41,12 +42,16 @@ public class DefaultAnswerService implements AnswerService {
 	@Autowired
 	private List<AnswerEngine> answerEngines;
 
+	@Autowired
+	private ElasticsearchAnswerRepository elasticsearchAnswerRepository;
+
 	@Override
 	public Answer ask(Question question) {
 		for (AnswerEngine answerEngine : answerEngines) {
 			Answer answer = answerEngine.answer(question);
 			if (answer != Answer.NOT_AVAILABLE) {
 				ANSWER_LOG.info(JsonUtils.toJson(answer));
+				this.elasticsearchAnswerRepository.save(answer);
 				return answer;
 			}
 		}

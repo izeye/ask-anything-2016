@@ -16,12 +16,14 @@
 
 package com.ctb.askanything.core.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ctb.askanything.core.domain.Feedback;
+import com.ctb.askanything.core.repository.ElasticsearchFeedbackRepository;
 import com.ctb.askanything.core.util.JsonUtils;
 
 /**
@@ -34,9 +36,13 @@ public class DefaultFeedbackService implements FeedbackService {
 
 	private static final Logger FEEDBACK_LOG = LoggerFactory.getLogger("FEEDBACK");
 
+	@Autowired
+	private ElasticsearchFeedbackRepository elasticsearchFeedbackRepository;
+
 	@Override
 	public void feedback(Feedback feedback) {
 		FEEDBACK_LOG.info(JsonUtils.toJson(feedback));
+		this.elasticsearchFeedbackRepository.save(feedback);
 	}
 
 }
