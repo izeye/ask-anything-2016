@@ -16,7 +16,12 @@
 
 package com.ctb.askanything.core.domain;
 
+import java.util.Date;
 import java.util.UUID;
+
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Field;
+import org.springframework.data.elasticsearch.annotations.FieldType;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,6 +33,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
+@Document(indexName = "answer")
 public class Answer {
 
 	/**
@@ -36,11 +42,14 @@ public class Answer {
 	public static final Answer NOT_AVAILABLE = new Answer();
 
 	private String id;
+	@Field(type = FieldType.Date)
+	private Date timestamp;
 	private Question question;
 	private String body;
 
 	public Answer(Question question, String body) {
 		this.id = UUID.randomUUID().toString();
+		this.timestamp = new Date();
 		this.question = question;
 		this.body = body;
 	}
