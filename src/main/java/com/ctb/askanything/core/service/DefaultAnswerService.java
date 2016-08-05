@@ -16,6 +16,7 @@
 
 package com.ctb.askanything.core.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +56,7 @@ public class DefaultAnswerService implements AnswerService {
 	}
 
 	private void log(Question question, Answer answer) {
-		AnswerHistory history = new AnswerHistory(question, answer);
+		AnswerHistory history = new AnswerHistory(new Date(), question, answer);
 		ANSWER_LOG.info(JsonUtils.toJson(history));
 	}
 

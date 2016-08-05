@@ -16,6 +16,8 @@
 
 package com.ctb.askanything.core.util;
 
+import java.util.Date;
+
 import org.junit.Test;
 
 import com.ctb.askanything.core.domain.Answer;
@@ -40,7 +42,7 @@ public class JsonUtilsTests {
 		String answerBody = "answerBody";
 		Answer answer = new Answer(answerBody);
 
-		AnswerHistory history = new AnswerHistory(question, answer);
+		AnswerHistory history = new AnswerHistory(new Date(), question, answer);
 		String json = JsonUtils.toJson(history);
 		System.out.println(json);
 

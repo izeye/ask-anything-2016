@@ -16,6 +16,8 @@
 
 package com.ctb.askanything.core.domain;
 
+import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -28,6 +30,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class AnswerHistory {
 
+	private Date timestamp;
 	private Question question;
 	private Answer answer;
 
