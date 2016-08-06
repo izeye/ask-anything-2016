@@ -70,6 +70,11 @@
         <module name="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck" />
         <module name="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStaticImportCheck">
             <property name="excludes" value="org.assertj.core.api.Assertions.*" />
+            <property name="excludes" value="org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.*" />
+            <property name="excludes" value="org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*" />
+            <property name="excludes" value="org.springframework.restdocs.payload.PayloadDocumentation.*" />
+            <property name="excludes" value="org.springframework.restdocs.request.RequestDocumentation.*" />
+            <property name="excludes" value="org.springframework.test.web.servlet.result.MockMvcResultMatchers.*" />
         </module>
         <module name="com.puppycrawl.tools.checkstyle.checks.imports.IllegalImportCheck" />
         <module name="com.puppycrawl.tools.checkstyle.checks.imports.RedundantImportCheck" />

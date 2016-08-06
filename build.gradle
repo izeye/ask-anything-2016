@@ -11,6 +11,7 @@ buildscript {
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:$springBootVersion")
         classpath("org.springframework.build.gradle:propdeps-plugin:$propdepsPluginVersion")
+        classpath("org.asciidoctor:asciidoctor-gradle-plugin:$asciidoctorPluginVersion")
     }
 }
 
@@ -19,6 +20,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'propdeps'
+apply plugin: 'org.asciidoctor.convert'
 apply plugin: 'checkstyle'
 
 sourceCompatibility = 1.8
@@ -48,10 +50,32 @@ dependencies {
     provided("org.projectlombok:lombok")
 
     testCompile("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
 springBoot {
     executable = true
+}
+
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
+
+test {
+    outputs.dir snippetsDir
+}
+
+asciidoctor {
+    attributes 'snippets': snippetsDir
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+jar {
+    dependsOn asciidoctor
+    from ("${asciidoctor.outputDir}/html5") {
+        into 'static/docs'
+    }
 }
 
 task wrapper(type: Wrapper) {

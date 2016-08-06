@@ -1,0 +1,55 @@
+= API Documentation
+
+== Ask API
+
+=== Sample
+
+* `curl` request
+
+include::{snippets}/ask/curl-request.adoc[]
+
+* HTTP request
+
+include::{snippets}/ask/http-request.adoc[]
+
+* HTTP response
+
+include::{snippets}/ask/http-response.adoc[]
+
+=== Description
+
+* HTTP request parameters
+
+include::{snippets}/ask/request-parameters.adoc[]
+
+* HTTP response fields
+
+include::{snippets}/ask/response-fields.adoc[]
+
+== Feedback API
+
+=== Sample
+
+* `curl` request
+
+include::{snippets}/feedback/curl-request.adoc[]
+
+* HTTP request
+
+include::{snippets}/feedback/http-request.adoc[]
+
+* HTTP response
+
+=== Description
+
+* HTTP request parameters
+
+include::{snippets}/feedback/request-parameters.adoc[]
+
+* HTTP path parameters
+
+include::{snippets}/feedback/path-parameters.adoc[]
+
+* HTTP response fields
+
+No response fields.
