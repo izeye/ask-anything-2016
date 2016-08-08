@@ -46,6 +46,7 @@ public class Answer {
 	private Date timestamp;
 	private Question question;
 	private String body;
+	private Feedback feedback = Feedback.NOT_AVAILABLE;
 
 	public Answer(Question question, String body) {
 		this.id = UUID.randomUUID().toString();

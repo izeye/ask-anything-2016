@@ -67,7 +67,14 @@ public class AskApiDocumentation {
 								fieldWithPath("question.timestamp").description("Timestamp for question"),
 								fieldWithPath("question.body").description("Body for question"),
 								fieldWithPath("question.requestIpAddress").description("Request IP address for question"),
-								fieldWithPath("body").description("Body for answer")
+								fieldWithPath("body").description("Body for answer"),
+
+								// FIXME: Using null object looks dirty here. Using DTO is better?
+								fieldWithPath("feedback").description("Feedback for the answer"),
+								fieldWithPath("feedback.id").description("ID for feedback"),
+								fieldWithPath("feedback.timestamp").description("Timestamp for feedback"),
+								fieldWithPath("feedback.body").description("Body for feedback"),
+								fieldWithPath("feedback.requestIpAddress").description("Request IP address for feedback")
 						)
 				));
 	}

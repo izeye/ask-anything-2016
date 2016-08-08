@@ -19,7 +19,6 @@ package com.ctb.askanything.core.domain;
 import java.util.Date;
 import java.util.UUID;
 
-import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
@@ -33,20 +32,22 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-@Document(indexName = "feedback")
 public class Feedback {
+
+	/**
+	 * Feedback instance indicating that there's no feedback.
+	 */
+	public static final Feedback NOT_AVAILABLE = new Feedback();
 
 	private String id;
 	@Field(type = FieldType.Date)
 	private Date timestamp;
-	private String answerId;
 	private String body;
 	private String requestIpAddress;
 
-	public Feedback(String answerId, String body, String requestIpAddress) {
+	public Feedback(String body, String requestIpAddress) {
 		this.id = UUID.randomUUID().toString();
 		this.timestamp = new Date();
-		this.answerId = answerId;
 		this.body = body;
 		this.requestIpAddress = requestIpAddress;
 	}

@@ -44,7 +44,7 @@ public class FeedbackApiController {
 	public void feedback(
 			@PathVariable String answerId, @RequestParam String feedback, HttpServletRequest request) {
 		String requestIpAddress = request.getRemoteAddr();
-		this.feedbackService.feedback(new Feedback(answerId, feedback, requestIpAddress));
+		this.feedbackService.feedback(answerId, new Feedback(feedback, requestIpAddress));
 	}
 
 }

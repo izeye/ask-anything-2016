@@ -22,8 +22,8 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ctb.askanything.core.domain.Answer;
 import com.ctb.askanything.core.domain.Feedback;
-import com.ctb.askanything.core.repository.ElasticsearchFeedbackRepository;
 import com.ctb.askanything.core.util.JsonUtils;
 
 /**
@@ -37,12 +37,16 @@ public class DefaultFeedbackService implements FeedbackService {
 	private static final Logger FEEDBACK_LOG = LoggerFactory.getLogger("FEEDBACK");
 
 	@Autowired
-	private ElasticsearchFeedbackRepository elasticsearchFeedbackRepository;
+	private AnswerService answerService;
 
 	@Override
-	public void feedback(Feedback feedback) {
-		FEEDBACK_LOG.info(JsonUtils.toJson(feedback));
-		this.elasticsearchFeedbackRepository.save(feedback);
+	public void feedback(String answerId, Feedback feedback) {
+		Answer answer = this.answerService.findOne(answerId);
+		answer.setFeedback(feedback);
+
+		this.answerService.save(answer);
+
+		FEEDBACK_LOG.info(JsonUtils.toJson(answer));
 	}
 
 }

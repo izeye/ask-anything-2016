@@ -16,9 +16,14 @@
 
 package com.ctb.askanything.core.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.ctb.askanything.core.domain.Answer;
+import com.ctb.askanything.core.service.AnswerService;
 
 /**
  * Controller for home.
@@ -29,8 +34,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping(path = "/")
 public class HomeController {
 
+	@Autowired
+	private AnswerService answerService;
+
 	@GetMapping
-	public String index() {
+	public String index(Model model) {
+		Iterable<Answer> answers = this.answerService.findAllTimestampDesc();
+		model.addAttribute("answers", answers);
 		return "index";
 	}
 

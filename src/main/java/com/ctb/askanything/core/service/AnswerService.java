@@ -28,4 +28,10 @@ public interface AnswerService {
 
 	Answer ask(Question question);
 
+	Answer findOne(String id);
+
+	void save(Answer answer);
+
+	Iterable<Answer> findAllTimestampDesc();
+
 }

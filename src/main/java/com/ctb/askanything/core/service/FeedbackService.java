@@ -25,6 +25,6 @@ import com.ctb.askanything.core.domain.Feedback;
  */
 public interface FeedbackService {
 
-	void feedback(Feedback feedback);
+	void feedback(String answerId, Feedback feedback);
 
 }

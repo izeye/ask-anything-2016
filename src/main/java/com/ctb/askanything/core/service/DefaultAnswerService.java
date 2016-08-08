@@ -19,6 +19,7 @@ package com.ctb.askanything.core.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import org.slf4j.Logger;
@@ -56,6 +57,22 @@ public class DefaultAnswerService implements AnswerService {
 			}
 		}
 		throw new IllegalStateException("Unreachable. Fallback answer engine failed?");
+	}
+
+	@Override
+	public Answer findOne(String id) {
+		return this.elasticsearchAnswerRepository.findOne(id);
+	}
+
+	@Override
+	public void save(Answer answer) {
+		this.elasticsearchAnswerRepository.save(answer);
+	}
+
+	@Override
+	public Iterable<Answer> findAllTimestampDesc() {
+		return this.elasticsearchAnswerRepository
+				.findAll(new Sort(Sort.Direction.DESC, "timestamp"));
 	}
 
 }

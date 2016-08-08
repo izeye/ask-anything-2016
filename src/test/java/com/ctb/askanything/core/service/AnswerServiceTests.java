@@ -14,16 +14,30 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.repository;
+package com.ctb.askanything.core.service;
 
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
-import com.ctb.askanything.core.domain.Feedback;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
 /**
- * Elasticsearch repository for feedbacks.
+ * Tests for AnswerService.
  *
  * @author Johnny Lim
  */
-public interface ElasticsearchFeedbackRepository extends ElasticsearchRepository<Feedback, String> {
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+public class AnswerServiceTests {
+
+	@Autowired
+	AnswerService answerService;
+
+	@Test
+	public void testFindAllTimestampDesc() {
+		this.answerService.findAllTimestampDesc().forEach(System.out::println);
+	}
+
 }

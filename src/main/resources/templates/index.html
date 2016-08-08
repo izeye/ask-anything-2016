@@ -56,6 +56,27 @@
         <textarea id="feedback"></textarea>
         <input type="submit" value="Feedback" onclick="feedback()" />
     </div>
+
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Time</th>
+                <th>Question</th>
+                <th>Answer</th>
+                <th>Feedback</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="answer : ${answers}">
+                <td th:text="${#calendars.format(answer.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${answer.body}"></td>
+                <td th:text="${answer.question.body}"></td>
+                <td th:text="${answer.feedback.body}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 </body>
 </html>

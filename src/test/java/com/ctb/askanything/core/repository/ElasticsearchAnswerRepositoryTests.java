@@ -18,6 +18,7 @@ package com.ctb.askanything.core.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import org.junit.Test;
@@ -53,6 +54,12 @@ public class ElasticsearchAnswerRepositoryTests {
 		System.out.println(found);
 		assertThat(found.getQuestion()).isEqualTo(question);
 		assertThat(found.getBody()).isEqualTo(answerBody);
+	}
+
+	@Test
+	public void testFindAll() {
+		this.elasticsearchAnswerRepository
+				.findAll(new Sort(Sort.Direction.DESC, "timestamp")).forEach(System.out::println);
 	}
 
 }
