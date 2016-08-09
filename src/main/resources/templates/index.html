@@ -70,8 +70,8 @@
             <tbody>
             <tr th:each="answer : ${answers}">
                 <td th:text="${#calendars.format(answer.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                <td th:text="${answer.body}"></td>
                 <td th:text="${answer.question.body}"></td>
+                <td th:text="${answer.body}"></td>
                 <td th:text="${answer.feedback.body}"></td>
             </tr>
             </tbody>
