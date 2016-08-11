@@ -39,6 +39,10 @@
 
     function feedback() {
         var feedback = $('#feedback').val();
+        if (feedback === '') {
+            alert('Empty feedback is not allowed!');
+            return;
+        }
         var feedbackUri = '/api/v1/feedback/' + answerId;
         $.post(feedbackUri, {feedback: feedback});
     }
