@@ -44,7 +44,9 @@
             return;
         }
         var feedbackUri = '/api/v1/feedback/' + answerId;
-        $.post(feedbackUri, {feedback: feedback});
+        $.post(feedbackUri, {feedback: feedback}, function (response) {
+            location = '/';
+        });
     }
 </script>
 
