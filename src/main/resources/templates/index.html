@@ -26,6 +26,10 @@
 
     function ask() {
         var question = $('#question').val();
+        if (question === '') {
+            alert('Empty question is not allowed!');
+            return;
+        }
         $.getJSON('/api/v1/ask', { question: question }, function (answer) {
             answerId = answer.id;
             $('#answer-area').text(answer.body);
