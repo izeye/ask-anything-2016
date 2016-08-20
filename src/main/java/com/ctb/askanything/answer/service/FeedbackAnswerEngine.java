@@ -20,7 +20,7 @@ import java.util.Iterator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 
 import com.ctb.askanything.api.domain.Answer;
@@ -40,14 +40,22 @@ public class FeedbackAnswerEngine implements AnswerEngine {
 
 	@Override
 	public Answer answer(Question question) {
-		MatchQueryBuilder query =
-				QueryBuilders.matchQuery("feedback.body", question.getBody());
-		Iterable<Answer> answers = this.elasticsearchAnswerRepository.search(query);
-		Iterator<Answer> iterator = answers.iterator();
-		if (!iterator.hasNext()) {
+		Answer answer = search(question);
+		if (answer == Answer.NOT_AVAILABLE) {
 			return Answer.NOT_AVAILABLE;
 		}
-		return new Answer(question, iterator.next().getFeedback().getBody());
+		String feedbackBody = answer.getFeedback().getBody();
+		return new Answer(
+				question, feedbackBody != null ? feedbackBody : answer.getBody());
+	}
+
+	private Answer search(Question question) {
+		MultiMatchQueryBuilder query =
+				QueryBuilders.multiMatchQuery(
+						question.getBody(), "feedback.body", "question.body");
+		Iterable<Answer> answers = this.elasticsearchAnswerRepository.search(query);
+		Iterator<Answer> iterator = answers.iterator();
+		return iterator.hasNext() ? iterator.next() : Answer.NOT_AVAILABLE;
 	}
 
 }

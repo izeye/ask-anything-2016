@@ -23,6 +23,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.MultiMatchQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -67,8 +68,17 @@ public class ElasticsearchAnswerRepositoryTests {
 	}
 
 	@Test
-	public void testSearch() {
-		MatchQueryBuilder query = QueryBuilders.matchQuery("feedback.body", "feedback 3");
+	public void testSearchWithMatch() {
+		MatchQueryBuilder query =
+				QueryBuilders.matchQuery("feedback.body", "feedback 3");
+		Iterable<Answer> answers = this.elasticsearchAnswerRepository.search(query);
+		answers.forEach(System.out::println);
+	}
+
+	@Test
+	public void testSearchWithMultiMatch() {
+		MultiMatchQueryBuilder query = QueryBuilders.multiMatchQuery(
+				"feedback 3", "feedback.body", "question.body");
 		Iterable<Answer> answers = this.elasticsearchAnswerRepository.search(query);
 		answers.forEach(System.out::println);
 	}
