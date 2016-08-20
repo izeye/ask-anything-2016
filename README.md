@@ -1,4 +1,20 @@
 # ask-anything
+## Overview
+* `ask-anything` is an answering framework.
+
+## How To Publish `ask-anything-api` to a Maven repository
+* Maven local
+
+```
+./gradlew clean publishApiPublicationToMavenLocal
+```
+
+* Maven repository
+
+```
+./gradlew clean publishApiPublicationToMavenRepository
+```
+
 ## Release Notes
 * 2016-08-08 v0.5 Display the answered questions.
 * 2016-08-05 v0.4 Added the feedback system.
