@@ -37,6 +37,10 @@
         });
     }
 
+    function reset() {
+        location = '/';
+    }
+
     function feedback() {
         var feedback = $('#feedback').val();
         if (feedback === '') {
@@ -45,7 +49,7 @@
         }
         var feedbackUri = '/api/v1/feedback/' + answerId;
         $.post(feedbackUri, {feedback: feedback}, function (response) {
-            location = '/';
+            reset();
         });
     }
 </script>
@@ -62,9 +66,10 @@
     <div id="answer-area"></div>
 
     <div id="feedback-area" style="display: none">
-        <label for="feedback">Feedback: </label>
-        <textarea id="feedback"></textarea>
-        <input type="submit" value="Feedback" onclick="feedback()" />
+        <label for="feedback">Feedback: </label><p/>
+        <input type="submit" value="Like it!" onclick="reset()" /><p/>
+        <textarea id="feedback"></textarea><p/>
+        <input type="submit" value="Fix it!" onclick="feedback()" />
     </div>
 
     <div>
