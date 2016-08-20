@@ -21,6 +21,7 @@ apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'propdeps'
 apply plugin: 'org.asciidoctor.convert'
+apply plugin: 'maven-publish'
 apply plugin: 'checkstyle'
 apply plugin: 'jacoco'
 
@@ -38,15 +39,15 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     compile("org.springframework.boot:spring-boot-starter-data-elasticsearch")
     compile("org.springframework.boot:spring-boot-starter-actuator")
-    compile("org.springframework.boot:spring-boot-devtools")
+
+    // FIXME:
+    // Disable temporarily due to ClassCastException related to UserAgentAnswerEngine.
+//    compile("org.springframework.boot:spring-boot-devtools")
 
     compile("org.webjars:webjars-locator")
 
     compile("org.webjars:bootstrap:${bootstrapVersion}")
     compile("org.webjars:jquery:${jQueryVersion}")
-
-    // NOTE: See https://github.com/izeye/ua-analyzer
-    compile("com.izeye.ua-analyzer:ua-analyzer-core:${uaAnalyzerVersion}")
 
     provided("org.projectlombok:lombok")
 
@@ -54,11 +55,18 @@ dependencies {
     testCompile("org.springframework.restdocs:spring-restdocs-mockmvc")
 }
 
+if (project.hasProperty('env') && project.getProperty('env') == 'production') {
+    apply from: 'gradle/production.gradle'
+}
+
 springBoot {
     executable = true
 }
 
 ext {
+    apiArtifactVersion = '0.2.0.BUILD-SNAPSHOT'
+//    apiArtifactVersion = '0.1.0.RELEASE'
+
     snippetsDir = file('build/generated-snippets')
 }
 
@@ -85,6 +93,48 @@ task wrapper(type: Wrapper) {
 
 tasks.withType(JavaCompile) {
     options.compilerArgs << '-Xlint:unchecked'
+}
+
+task apiJar(type: Jar) {
+    from sourceSets.main.output
+    include 'com/ctb/askanything/api/**'
+}
+
+task apiSourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    include 'com/ctb/askanything/api/**'
+}
+
+publishing {
+    publications {
+        api(MavenPublication) {
+            groupId 'com.ctb.ask-anything'
+            artifactId 'ask-anything-api'
+            version apiArtifactVersion
+
+            artifact apiJar
+
+            artifact apiSourceJar {
+                classifier 'sources'
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            credentials {
+                username "admin"
+                password "secret123"
+            }
+
+            if (apiArtifactVersion.endsWith("BUILD-SNAPSHOT")) {
+                url "http://localhost:8092/repository/snapshots"
+            }
+            else {
+                url "http://localhost:8092/repository/internal"
+            }
+        }
+    }
 }
 
 checkstyle {

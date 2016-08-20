@@ -16,11 +16,17 @@
 
 package com.ctb.askanything.core.config;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import com.izeye.uaanalyzer.core.service.DefaultUserAgentAnalyzer;
-import com.izeye.uaanalyzer.core.service.UserAgentAnalyzer;
+import com.ctb.askanything.api.service.AnswerEngine;
+import com.ctb.askanything.core.util.ClassUtils;
 
 /**
  * Configuration for this application.
@@ -28,11 +34,26 @@ import com.izeye.uaanalyzer.core.service.UserAgentAnalyzer;
  * @author Johnny Lim
  */
 @Configuration
+@EnableConfigurationProperties(AppProperties.class)
 public class AppConfig {
 
+	@Autowired
+	private AppProperties properties;
+
 	@Bean
-	public UserAgentAnalyzer userAgentAnalyzer() {
-		return new DefaultUserAgentAnalyzer();
+	public List<AnswerEngine> answerEngines() {
+		List<AppProperties.AnswerEngineSpec> answerEngineSpecs =
+				this.properties.getAnswerEngineSpecs();
+		Collections.sort(
+				answerEngineSpecs,
+				(o1, o2) -> Integer.compare(o1.getEngineOrder(), o2.getEngineOrder()));
+		List<AnswerEngine> answerEngines = new ArrayList<>();
+		for (AppProperties.AnswerEngineSpec spec : answerEngineSpecs) {
+			AnswerEngine answerEngine =
+					(AnswerEngine) ClassUtils.createInstance(spec.getEngineClass());
+			answerEngines.add(answerEngine);
+		}
+		return answerEngines;
 	}
 
 }

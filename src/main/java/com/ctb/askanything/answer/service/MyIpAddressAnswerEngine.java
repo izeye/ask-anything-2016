@@ -14,22 +14,17 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.service;
+package com.ctb.askanything.answer.service;
 
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
-
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.AnswerEngineOrders;
-import com.ctb.askanything.core.domain.Question;
+import com.ctb.askanything.api.domain.Answer;
+import com.ctb.askanything.api.domain.Question;
+import com.ctb.askanything.api.service.AnswerEngine;
 
 /**
  * Answer engine for my IP address.
  *
  * @author Johnny Lim
  */
-@Service
-@Order(AnswerEngineOrders.MY_IP_ADDRESS)
 public class MyIpAddressAnswerEngine implements AnswerEngine {
 
 	private static final String MY_IP_ADDRESS_QUESTION_SIGNATURE = "my ip";

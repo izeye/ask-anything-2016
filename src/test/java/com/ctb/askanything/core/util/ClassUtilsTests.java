@@ -14,33 +14,25 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.domain;
+package com.ctb.askanything.core.util;
 
-import org.springframework.core.Ordered;
+import org.junit.Test;
+
+import com.ctb.askanything.api.service.AnswerEngine;
 
 /**
- * Order constants for answer engines.
+ * Tests for ClassUtils.
  *
  * @author Johnny Lim
  */
-public abstract class AnswerEngineOrders {
+public class ClassUtilsTests {
 
-	/**
-	 * Order for the my IP address answer engine.
-	 */
-	public static final int MY_IP_ADDRESS = 1;
-
-	/**
-	 * Order for the user agent answer engine.
-	 */
-	public static final int USER_AGENT = 2;
-
-	/**
-	 * Order for the fallback answer engine.
-	 */
-	public static final int FALLBACK = Ordered.LOWEST_PRECEDENCE;
-
-	private AnswerEngineOrders() {
+	@Test
+	public void test() throws ClassNotFoundException {
+		String className = "com.ctb.askanything.answer.service.MyIpAddressAnswerEngine";
+		Class<?> clazz = Class.forName(className);
+		AnswerEngine answerEngine = (AnswerEngine) ClassUtils.createInstance(clazz);
+		System.out.println(answerEngine);
 	}
 
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.domain;
+package com.ctb.askanything.api.domain;
 
 import java.util.Date;
 import java.util.UUID;

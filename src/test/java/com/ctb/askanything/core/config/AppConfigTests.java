@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.service;
+package com.ctb.askanything.core.config;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,22 +26,24 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import com.ctb.askanything.api.service.AnswerEngine;
+
 /**
- * Tests for AnswerService.
+ * Tests for AppConfig.
  *
  * @author Johnny Lim
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @ActiveProfiles("test")
-public class AnswerServiceTests {
+public class AppConfigTests {
 
 	@Autowired
-	AnswerService answerService;
+	private List<AnswerEngine> answerEngines;
 
 	@Test
-	public void testFindAllTimestampDesc() {
-		this.answerService.findAllTimestampDesc().forEach(System.out::println);
+	public void test() {
+		System.out.println(this.answerEngines);
 	}
 
 }

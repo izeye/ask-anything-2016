@@ -24,8 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.Question;
+import com.ctb.askanything.api.domain.Answer;
+import com.ctb.askanything.api.domain.Question;
 import com.ctb.askanything.core.service.AnswerService;
 
 /**

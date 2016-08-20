@@ -16,8 +16,8 @@
 
 package com.ctb.askanything.core.service;
 
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.Question;
+import com.ctb.askanything.api.domain.Answer;
+import com.ctb.askanything.api.domain.Question;
 
 /**
  * Interface for answer service.

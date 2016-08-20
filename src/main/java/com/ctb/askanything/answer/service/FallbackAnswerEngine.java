@@ -14,14 +14,11 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.service;
+package com.ctb.askanything.answer.service;
 
-import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Service;
-
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.AnswerEngineOrders;
-import com.ctb.askanything.core.domain.Question;
+import com.ctb.askanything.api.domain.Answer;
+import com.ctb.askanything.api.domain.Question;
+import com.ctb.askanything.api.service.AnswerEngine;
 
 /**
  * Fallback answer engine.
@@ -30,8 +27,6 @@ import com.ctb.askanything.core.domain.Question;
  *
  * @author Johnny Lim
  */
-@Service
-@Order(AnswerEngineOrders.FALLBACK)
 public class FallbackAnswerEngine implements AnswerEngine {
 
 	private static final String TEMPLATE_ANSWER = "Are you asking \"{body}\"?";

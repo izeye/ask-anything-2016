@@ -16,7 +16,7 @@
 
 package com.ctb.askanything.core.service;
 
-import com.ctb.askanything.core.domain.Feedback;
+import com.ctb.askanything.api.domain.Feedback;
 
 /**
  * Interface for feedback service.

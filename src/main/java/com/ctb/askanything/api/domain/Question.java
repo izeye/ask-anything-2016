@@ -14,16 +14,33 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.repository;
+package com.ctb.askanything.api.domain;
 
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import java.util.Date;
+import java.util.UUID;
 
-import com.ctb.askanything.api.domain.Answer;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * Elasticsearch repository for answers.
+ * Question container.
  *
  * @author Johnny Lim
  */
-public interface ElasticsearchAnswerRepository extends ElasticsearchRepository<Answer, String> {
+@Data
+@NoArgsConstructor
+public class Question {
+
+	private String id;
+	private Date timestamp;
+	private String body;
+	private String requestIpAddress;
+
+	public Question(String body, String requestIpAddress) {
+		this.id = UUID.randomUUID().toString();
+		this.timestamp = new Date();
+		this.body = body;
+		this.requestIpAddress = requestIpAddress;
+	}
+
 }

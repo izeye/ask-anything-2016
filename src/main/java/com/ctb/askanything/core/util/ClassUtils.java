@@ -14,18 +14,36 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.service;
+package com.ctb.askanything.core.util;
 
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.Question;
+import java.lang.reflect.InvocationTargetException;
 
 /**
- * Interface for answer engines.
+ * Utilities for classes.
  *
  * @author Johnny Lim
  */
-public interface AnswerEngine {
+public abstract class ClassUtils {
 
-	Answer answer(Question question);
+	private ClassUtils() {
+	}
+
+	public static Object createInstance(Class<?> clazz) {
+		try {
+			return clazz.getConstructor().newInstance();
+		}
+		catch (NoSuchMethodException ex) {
+			throw new RuntimeException(ex);
+		}
+		catch (InvocationTargetException ex) {
+			throw new RuntimeException(ex);
+		}
+		catch (InstantiationException ex) {
+			throw new RuntimeException(ex);
+		}
+		catch (IllegalAccessException ex) {
+			throw new RuntimeException(ex);
+		}
+	}
 
 }

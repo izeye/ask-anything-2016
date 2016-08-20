@@ -22,8 +22,8 @@ import org.springframework.stereotype.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.Feedback;
+import com.ctb.askanything.api.domain.Answer;
+import com.ctb.askanything.api.domain.Feedback;
 import com.ctb.askanything.core.util.JsonUtils;
 
 /**

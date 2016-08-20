@@ -22,7 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.ctb.askanything.core.domain.Answer;
+import com.ctb.askanything.api.domain.Answer;
 import com.ctb.askanything.core.service.AnswerService;
 
 /**

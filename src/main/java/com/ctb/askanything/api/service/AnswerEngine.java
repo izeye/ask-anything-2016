@@ -14,33 +14,18 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.domain;
+package com.ctb.askanything.api.service;
 
-import java.util.Date;
-import java.util.UUID;
-
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.ctb.askanything.api.domain.Answer;
+import com.ctb.askanything.api.domain.Question;
 
 /**
- * Question container.
+ * Interface for answer engines.
  *
  * @author Johnny Lim
  */
-@Data
-@NoArgsConstructor
-public class Question {
+public interface AnswerEngine {
 
-	private String id;
-	private Date timestamp;
-	private String body;
-	private String requestIpAddress;
-
-	public Question(String body, String requestIpAddress) {
-		this.id = UUID.randomUUID().toString();
-		this.timestamp = new Date();
-		this.body = body;
-		this.requestIpAddress = requestIpAddress;
-	}
+	Answer answer(Question question);
 
 }

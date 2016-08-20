@@ -1,0 +1,5 @@
+dependencies {
+    compile("com.ctb.ask-anything:ask-anything-answer-module-ua-analyzer:${askAnythingAnswerModuleUaAnalyzerVersion}") {
+        exclude group: "com.ctb.ask-anything", module: "ask-anything-api"
+    }
+}

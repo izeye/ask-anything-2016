@@ -14,16 +14,34 @@
  * limitations under the License.
  */
 
-package com.ctb.askanything.core.repository;
+package com.ctb.askanything.core.config;
 
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+import java.util.List;
 
-import com.ctb.askanything.api.domain.Answer;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+import lombok.Data;
 
 /**
- * Elasticsearch repository for answers.
+ * Properties for answer engines.
  *
  * @author Johnny Lim
  */
-public interface ElasticsearchAnswerRepository extends ElasticsearchRepository<Answer, String> {
+@ConfigurationProperties(prefix = "ask-anything")
+@Data
+public class AppProperties {
+
+	private List<AnswerEngineSpec> answerEngineSpecs;
+
+	/**
+	 * Specification for an answer engine.
+	 */
+	@Data
+	public static class AnswerEngineSpec {
+
+		private Class engineClass;
+		private int engineOrder;
+
+	}
+
 }

@@ -19,13 +19,14 @@ package com.ctb.askanything.core.repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Sort;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.ctb.askanything.core.domain.Answer;
-import com.ctb.askanything.core.domain.Question;
+import com.ctb.askanything.api.domain.Answer;
+import com.ctb.askanything.api.domain.Question;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -36,6 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
+@ActiveProfiles("test")
 public class ElasticsearchAnswerRepositoryTests {
 
 	@Autowired
