@@ -32,10 +32,6 @@ repositories {
     maven { url "http://repo.spring.io/libs-release" }
     maven { url "http://repo.spring.io/libs-milestone" }
     maven { url "http://repo.spring.io/snapshot" }
-
-    // NOTE: Use repositories for `ask-anything-answer-module-ua-analyzer`.
-//    maven { url "http://localhost:8092/repository/internal" }
-//    maven { url "http://localhost:8092/repository/snapshots" }
     mavenLocal()
 }
 

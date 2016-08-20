@@ -1,3 +1,9 @@
+repositories {
+    // NOTE: Use repositories for `ask-anything-answer-module-ua-analyzer`.
+    maven { url "http://localhost:8092/repository/internal" }
+    maven { url "http://localhost:8092/repository/snapshots" }
+}
+
 dependencies {
     compile("com.ctb.ask-anything:ask-anything-answer-module-ua-analyzer:${askAnythingAnswerModuleUaAnalyzerVersion}") {
         exclude group: "com.ctb.ask-anything", module: "ask-anything-api"
