@@ -16,6 +16,8 @@
 
 package com.ctb.askanything.answer.service;
 
+import java.util.regex.Pattern;
+
 import com.ctb.askanything.api.domain.Answer;
 import com.ctb.askanything.api.domain.Question;
 import com.ctb.askanything.api.service.AnswerEngine;
@@ -32,10 +34,17 @@ public class FallbackAnswerEngine implements AnswerEngine {
 	private static final String TEMPLATE_ANSWER = "Are you asking \"{body}\"?";
 	private static final String PLACEHOLDER_BODY = "{body}";
 
+	private static final String REGEX_ANSWER = "Are you asking \"[^\"]+\"\\?";
+	private static final Pattern PATTERN_ANSWER = Pattern.compile(REGEX_ANSWER);
+
 	@Override
 	public Answer answer(Question question) {
 		String answer = TEMPLATE_ANSWER.replace(PLACEHOLDER_BODY, question.getBody());
 		return new Answer(question, answer);
+	}
+
+	public static boolean isFallbackAnswer(String answer) {
+		return PATTERN_ANSWER.matcher(answer).matches();
 	}
 
 }

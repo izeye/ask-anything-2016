@@ -40,22 +40,28 @@ public class FeedbackAnswerEngine implements AnswerEngine {
 
 	@Override
 	public Answer answer(Question question) {
-		Answer answer = search(question);
-		if (answer == Answer.NOT_AVAILABLE) {
-			return Answer.NOT_AVAILABLE;
-		}
-		String feedbackBody = answer.getFeedback().getBody();
-		return new Answer(
-				question, feedbackBody != null ? feedbackBody : answer.getBody());
+		String answerBody = search(question);
+		return new Answer(question, answerBody);
 	}
 
-	private Answer search(Question question) {
+	private String search(Question question) {
 		MultiMatchQueryBuilder query =
 				QueryBuilders.multiMatchQuery(
 						question.getBody(), "feedback.body", "question.body");
 		Iterable<Answer> answers = this.elasticsearchAnswerRepository.search(query);
 		Iterator<Answer> iterator = answers.iterator();
-		return iterator.hasNext() ? iterator.next() : Answer.NOT_AVAILABLE;
+		while (iterator.hasNext()) {
+			Answer answer = iterator.next();
+			String feedbackBody = answer.getFeedback().getBody();
+			if (feedbackBody != null) {
+				return feedbackBody;
+			}
+			String answerBody = answer.getBody();
+			if (!FallbackAnswerEngine.isFallbackAnswer(answerBody)) {
+				return answerBody;
+			}
+		}
+		return null;
 	}
 
 }
