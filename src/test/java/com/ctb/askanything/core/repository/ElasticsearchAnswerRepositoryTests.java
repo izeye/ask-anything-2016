@@ -22,6 +22,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import org.elasticsearch.index.query.MatchQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -62,6 +64,13 @@ public class ElasticsearchAnswerRepositoryTests {
 	public void testFindAll() {
 		this.elasticsearchAnswerRepository
 				.findAll(new Sort(Sort.Direction.DESC, "timestamp")).forEach(System.out::println);
+	}
+
+	@Test
+	public void testSearch() {
+		MatchQueryBuilder query = QueryBuilders.matchQuery("feedback.body", "feedback 3");
+		Iterable<Answer> answers = this.elasticsearchAnswerRepository.search(query);
+		answers.forEach(System.out::println);
 	}
 
 }

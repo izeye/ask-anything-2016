@@ -21,7 +21,9 @@ import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -40,8 +42,13 @@ public class AppConfig {
 	@Autowired
 	private AppProperties properties;
 
+	@Autowired
+	private ApplicationContext applicationContext;
+
 	@Bean
 	public List<AnswerEngine> answerEngines() {
+		AutowireCapableBeanFactory factory =
+				this.applicationContext.getAutowireCapableBeanFactory();
 		List<AppProperties.AnswerEngineSpec> answerEngineSpecs =
 				this.properties.getAnswerEngineSpecs();
 		Collections.sort(
@@ -51,6 +58,7 @@ public class AppConfig {
 		for (AppProperties.AnswerEngineSpec spec : answerEngineSpecs) {
 			AnswerEngine answerEngine =
 					(AnswerEngine) ClassUtils.createInstance(spec.getEngineClass());
+			factory.autowireBean(answerEngine);
 			answerEngines.add(answerEngine);
 		}
 		return answerEngines;

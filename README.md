@@ -16,6 +16,7 @@
 ```
 
 ## Release Notes
+* 2016-08-21 v0.6 Added the feedback-based answer engine.
 * 2016-08-08 v0.5 Display the answered questions.
 * 2016-08-05 v0.4 Added the feedback system.
 * 2016-08-04 v0.3 Added the user agent answer engine.
