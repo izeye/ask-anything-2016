@@ -1,4 +1,4 @@
 #!/bin/bash
 
 git pull
-./gradlew clean bootRepackage
+./gradlew clean bootRepackage -Penv=production
