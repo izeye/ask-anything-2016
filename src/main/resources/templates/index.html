@@ -19,6 +19,12 @@
     <![endif]-->
 
     <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+    <script src="https://npmcdn.com/react@15.3.1/dist/react-with-addons.js"></script>
+    <script src="https://npmcdn.com/react-dom@15.3.1/dist/react-dom.js"></script>
+    <script src="https://npmcdn.com/babel-core@5.8.38/browser.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/remarkable/1.6.2/remarkable.min.js"></script>
 </head>
 <body>
 <script>
@@ -42,7 +48,7 @@
     }
 
     function feedback() {
-        var feedback = $('#feedback').val();
+        var feedback = $('#feedback-body').val();
         if (feedback === '') {
             alert('Empty feedback is not allowed!');
             return;
@@ -66,9 +72,9 @@
     <div id="answer-area"></div>
 
     <div id="feedback-area" style="display: none">
-        <label for="feedback">Feedback: </label><p/>
+        <label>Feedback: </label><p/>
         <input type="submit" value="Like it!" onclick="reset()" /><p/>
-        <textarea id="feedback"></textarea><p/>
+        <div id="feedback"></div>
         <input type="submit" value="Fix it!" onclick="feedback()" />
     </div>
 
@@ -86,12 +92,22 @@
             <tr th:each="answer : ${answers}">
                 <td th:text="${#calendars.format(answer.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${answer.question.body}"></td>
-                <td th:text="${answer.body}"></td>
-                <td th:text="${answer.feedback.body}"></td>
+                <td class="markdown-enabled" th:text="${answer.body}"></td>
+                <td class="markdown-enabled" th:text="${answer.feedback.body}"></td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<script type="text/babel" src="/app.js">
+</script>
+
+<script>
+    var md = new Remarkable();
+    $(".markdown-enabled").each(function () {
+        this.innerHTML = (md.render(this.innerHTML));
+    });
+</script>
 </body>
 </html>
