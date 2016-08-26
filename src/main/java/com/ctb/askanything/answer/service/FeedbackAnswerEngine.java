@@ -41,6 +41,9 @@ public class FeedbackAnswerEngine implements AnswerEngine {
 	@Override
 	public Answer answer(Question question) {
 		String answerBody = search(question);
+		if (answerBody == null) {
+			return Answer.NOT_AVAILABLE;
+		}
 		return new Answer(question, answerBody);
 	}
 

@@ -1,6 +1,6 @@
 var MarkdownEditor = React.createClass({
   getInitialState: function () {
-    return {value: 'Give me some feedback! (Markdown is available.)'};
+    return {value: ''};
   },
   handleChange: function () {
     this.setState({value: this.refs.feedback.value});
@@ -14,10 +14,11 @@ var MarkdownEditor = React.createClass({
       <div className="MarkdownEditor">
         <h3>Feedback</h3>
         <textarea
-        id="feedback-body"
-        onChange={this.handleChange}
-        ref="feedback"
-        defaultValue={this.state.value} />
+            id="feedback-body"
+            onChange={this.handleChange}
+            ref="feedback"
+            defaultValue={this.state.value}
+            placeholder="Give me some feedback! (Markdown is available.)" />
         <h3>Rendered feedback</h3>
         <div className="content" dangerouslySetInnerHTML={this.rawMarkup()} />
       </div>
